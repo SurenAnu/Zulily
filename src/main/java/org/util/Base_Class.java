@@ -3,10 +3,15 @@ package org.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Driver;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.FileHandler;
+import org.openqa.selenium.*;
 
+import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,9 +19,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -28,7 +30,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import cucumber.runtime.Timeout;
+//import cucumber.runtime.Timeout;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Base_Class {
@@ -63,6 +65,7 @@ public class Base_Class {
 			break;
 		}
 	}
+	
 
 	public static void urlLaunch() {
 		driver.get("https://www.zulily.com/");
@@ -72,13 +75,14 @@ public class Base_Class {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
-	public static void quit() {
+	public static void quit() throws InterruptedException {
+		Thread.sleep(3000);
 		driver.quit();
 	}
 
 	public static void clk(WebElement e) {
 		e.click();
-		System.out.println("just Normal webelement is clicked");
+		// System.out.println("just Normal webelement is clicked");
 	}
 
 	public static void alertWait() {
@@ -92,7 +96,7 @@ public class Base_Class {
 		WebDriverWait wt = new WebDriverWait(driver, 20);
 		WebElement until = wt.until(ExpectedConditions.visibilityOf(e));
 		until.click();
-		System.out.println("Visibility functionality element click");
+		// System.out.println("Visibility functionality element click");
 	}
 
 	public static void urlWait(String s, WebElement e) {
@@ -117,6 +121,9 @@ public class Base_Class {
 		fwt.until(ExpectedConditions.visibilityOf(locater));
 
 	}
+	
+	
+	
 
 	public static String excel(String filename, String sheet, int row, int cell) throws Exception {
 		File f = new File("C:\\Users\\SURENANU\\Desktop\\" + filename + ".xlsx");
@@ -137,7 +144,7 @@ public class Base_Class {
 			System.out.println("numaric");
 
 		}
-		return string; 
+		return string;
 	}
 
 	public void send(WebElement element, String value) {
@@ -145,7 +152,7 @@ public class Base_Class {
 	}
 
 	public static void sendWait(WebElement element, String value) {
-		WebDriverWait wt = new WebDriverWait(driver, 20);
+		WebDriverWait wt = new WebDriverWait(driver, 40);
 		wt.until(ExpectedConditions.visibilityOf(element)).sendKeys(value);
 
 	}
@@ -155,10 +162,6 @@ public class Base_Class {
 			send(element, value);
 		} catch (Exception e) {
 			sendWait(element, value);
-		}try {
-			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 
@@ -171,6 +174,7 @@ public class Base_Class {
 		}
 	}
 
+	
 	public static String getText(WebElement e) {
 
 		FluentWait<WebDriver> fwt = new FluentWait<WebDriver>(driver);
@@ -180,9 +184,16 @@ public class Base_Class {
 		return text;
 
 	}
+
 	public static String attribute(WebElement e) {
 		String attribute = e.getAttribute("value");
 		return attribute;
 	}
-
+public static void ScreenShot(String Filename) throws IOException {
+	TakesScreenshot f = (TakesScreenshot) driver;
+	File screenshotAs = f.getScreenshotAs(OutputType.FILE);
+	File fil = new File(System.getProperty("user.dir")+"\\src\\test\\resources\\ScreenShot\\"+Filename+".png");
+	//File fil = new File("C:\\Users\\SURENANU\\eclipse-workspace\\Zulily\\src\\test\\resources\\ScreenShot\\Filename.png");
+	org.openqa.selenium.io.FileHandler.copy(screenshotAs, fil);
+}
 }
