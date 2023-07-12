@@ -13,7 +13,7 @@ Feature: To validate the signin funcutionality of zulily application
       | arun     |        22222 |
       | kumar    |        88888 |
     And The user have to click the "shopnow" button
-    Then user can to see error message "Please enter a valid email address" on the screen
+    Then user can to see error message "errormsg" on the screen
 @regression @sanity   @smoke
   Scenario: To validate the Sigin functionality of zulily application with invalid credentials
     When The user have to click the "Sigin" button
@@ -22,6 +22,7 @@ Feature: To validate the signin funcutionality of zulily application
       | AAAAA    | 111111111111 |
       | BBBBB    | 222222222222 |
       | VVVVVVV  |   8888888888 |
+      
     And The user have to click the "shopnow" button
     Then user can to see error message "address" on the screen
 			

@@ -3,10 +3,12 @@ package org.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Driver;
 import java.time.Duration;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 import org.openqa.selenium.*;
@@ -55,23 +57,27 @@ public class Base_Class {
 		return driver;
 	}
 
-	public static void sw(String Value) {
-		switch (Value) {
-		case "chrome":
+	public static String getProperty(String key) {
+		String property = null;
+		try {
+			Properties p = new Properties();
+			FileReader r = new FileReader("C:\\Users\\SURENANU\\eclipse-workspace\\Zulily\\src\\test\\resources\\Config\\Config.properties");
+			p.load(r);
+			property = p.getProperty(key);
+		} catch (Exception e) {
 
-			break;
+			e.printStackTrace();
 
-		default:
-			break;
 		}
-	}
-	
+		return property;
 
-	public static void urlLaunch() {
-		driver.get("https://www.zulily.com/");
 	}
 
-	public void impWait() {
+	public static  void urlLaunch(String val) {
+		driver.get(val);
+	}
+
+	public static  void impWait() {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
@@ -121,9 +127,6 @@ public class Base_Class {
 		fwt.until(ExpectedConditions.visibilityOf(locater));
 
 	}
-	
-	
-	
 
 	public static String excel(String filename, String sheet, int row, int cell) throws Exception {
 		File f = new File("C:\\Users\\SURENANU\\Desktop\\" + filename + ".xlsx");
@@ -174,7 +177,6 @@ public class Base_Class {
 		}
 	}
 
-	
 	public static String getText(WebElement e) {
 
 		FluentWait<WebDriver> fwt = new FluentWait<WebDriver>(driver);
@@ -189,11 +191,14 @@ public class Base_Class {
 		String attribute = e.getAttribute("value");
 		return attribute;
 	}
-public static void ScreenShot(String Filename) throws IOException {
-	TakesScreenshot f = (TakesScreenshot) driver;
-	File screenshotAs = f.getScreenshotAs(OutputType.FILE);
-	File fil = new File(System.getProperty("user.dir")+"\\src\\test\\resources\\ScreenShot\\"+Filename+".png");
-	//File fil = new File("C:\\Users\\SURENANU\\eclipse-workspace\\Zulily\\src\\test\\resources\\ScreenShot\\Filename.png");
-	org.openqa.selenium.io.FileHandler.copy(screenshotAs, fil);
-}
+
+	public static void ScreenShot(String Filename) throws IOException {
+		TakesScreenshot f = (TakesScreenshot) driver;
+		File screenshotAs = f.getScreenshotAs(OutputType.FILE);
+		File fil = new File(
+				System.getProperty("user.dir") + "\\src\\test\\resources\\ScreenShot\\" + Filename + ".png");
+		// File fil = new
+		// File("C:\\Users\\SURENANU\\eclipse-workspace\\Zulily\\src\\test\\resources\\ScreenShot\\Filename.png");
+		org.openqa.selenium.io.FileHandler.copy(screenshotAs, fil);
+	}
 }

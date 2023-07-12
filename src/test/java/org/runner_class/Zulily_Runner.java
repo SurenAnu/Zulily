@@ -1,5 +1,7 @@
 package org.runner_class;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.home.Home_Page;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -19,11 +21,14 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 @CucumberOptions(features = "src/test/resources/Zulily_Feature"
                     ,glue = "org.step_definition"
                     ,dryRun = false
-                    ,monochrome = true
+                    ,monochrome = false
+                    ,tags = "@E2E"
+                    ,stepNotifications = true // it will show all the step methods
                     ,plugin = {"pretty"
                     ,"html:src\\test\\resources\\Reports"
                     ,"json:src\\test\\resources\\Reports\\report\\jsonreport.json"
                     ,"junit:src\\test\\resources\\Reports\\jreport\\junitreport.xml"
+                    
                     ,"rerun:src\\test\\resources\\Reports\\FailureReport\\Scanariofaild.txt"
                     
                     		}
@@ -34,9 +39,9 @@ public class Zulily_Runner {
 	
 @AfterClass
 public static void jvmReport() {
+	Logger logger = LogManager.getLogger(Zulily_Runner.class);
 	JVM_Report.generateJVMreport("src\\test\\resources\\Reports\\report\\jsonreport.json");
-	System.out.println("report generater successfully");
-	
+	logger.info("report generater successfully");
 	
 }
 }
