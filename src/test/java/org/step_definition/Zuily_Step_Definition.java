@@ -4,6 +4,8 @@ import java.sql.Driver;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.home.Home_Page;
 import org.home.Login;
 import org.home.reg;
@@ -26,10 +28,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class Zuily_Step_Definition extends Base_Class {
 	Login l;
 	reg r;
+	
 
 	@Given("The user should be in Zulily login page")
 	public void the_user_should_be_in_Zulily_login_page() throws InterruptedException {
-
+		
 	}
 
 	@When("The user have to click the Sigin button")
@@ -75,9 +78,10 @@ public class Zuily_Step_Definition extends Base_Class {
 	public void user_can_to_see_error_message_on_the_screen(String msg) {
 		l = new Login();
 
-		System.out.println(getText(l.getFailuremsg()));
+		Logger log = LogManager.getLogger(Zuily_Step_Definition.class );
+		log.info("error msg logger is passed"+getText(l.getFailuremsg()));
 		if (l.getEmailfield().equals(l.getFailuremsg())) {
-			Assert.assertEquals("assert work ", l.getFailuremsg(), msg);
+			Assert.assertEquals("assert work ", l.getFailuremsg(), getProperty(msg));
 
 		}
 
