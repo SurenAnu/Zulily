@@ -1,19 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="2" time="32.549955">
-    <testcase classname="To validate the signin funcutionality of zulily application" name="To validate the Sigin functionality of zulily application with invalid credentials" time="17.374784">
-        <system-out><![CDATA[Given The user should be in Zulily login page...............................passed
-When The user have to click the "Sigin" button..............................passed
-And the user has to enter username and password in the field................passed
-And The user have to click the "shopnow" button.............................passed
-Then user can to see error message "errormsg" on the screen.................passed
-]]></system-out>
-    </testcase>
-    <testcase classname="To validate the signin funcutionality of zulily application" name="To validate the Sigin functionality of zulily application with invalid credentials 2" time="15.175171">
-        <system-out><![CDATA[Given The user should be in Zulily login page...............................passed
-When The user have to click the "Sigin" button..............................passed
-And the user has to enter username and password in the field................passed
-And The user have to click the "shopnow" button.............................passed
-Then user can to see error message "address" on the screen..................passed
-]]></system-out>
-    </testcase>
-</testsuite>
+<testsuite failures="0" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" time="0"/>
