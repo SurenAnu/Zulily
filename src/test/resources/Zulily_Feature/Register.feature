@@ -4,7 +4,7 @@ Feature: registation funcutionality to be check
   Background: 
     Given The user should be in Zulily login page
 
-  @sanity   @smoke
+  @sanity  
   Scenario: to validate the registation funcutionality
     And The user have to click the "newmember" button
     When user enter the create the new email "email"id in the field

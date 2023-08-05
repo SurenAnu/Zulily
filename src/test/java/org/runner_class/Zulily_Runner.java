@@ -9,8 +9,10 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.util.Base_Class;
+import org.util.ExtendsReport;
 import org.util.JVM_Report;
 
+import cucumber.api.java.hr.Zadan;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -22,8 +24,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
                     ,glue = "org.step_definition"
                     ,dryRun = false
                     ,monochrome = false
-                    ,tags = "@E2E"
-                    ,stepNotifications = true // it will show all the step methods
+                    ,tags = {"@sanity or @somke","@smoke"}
+                    ,stepNotifications = true 
                     ,plugin = {"pretty"
                     ,"html:src\\test\\resources\\Reports"
                     ,"json:src\\test\\resources\\Reports\\report\\jsonreport.json"
@@ -37,11 +39,20 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Zulily_Runner {
 	
+	@BeforeClass
+	public static void BF() {
+		Logger log = LogManager.getLogger(Zulily_Runner.class);
+		log.info("Before class passed");
+		ExtendsReport.startReport();
+	}
+	
 @AfterClass
 public static void jvmReport() {
 	Logger logger = LogManager.getLogger(Zulily_Runner.class);
 	JVM_Report.generateJVMreport("src\\test\\resources\\Reports\\report\\jsonreport.json");
 	logger.info("report generater successfully");
+	ExtendsReport.endReport();
+	
 	
 }
 }
